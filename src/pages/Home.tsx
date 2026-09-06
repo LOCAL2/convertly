@@ -650,11 +650,28 @@ export default function Home() {
       };
     }
 
+    // Algorithm 0: Greeting & Conversation Detection (e.g. "สวัสดี", "สวัสดีครับ", "hello", "hi", "test", "ทดสอบระบบ")
+    if (/^(สวัสดี|สวัสดีครับ|สวัสดีค่ะ|สวัสดีจ้า|hello|hi|hey|test|ทดสอบ)$/i.test(q)) {
+      return {
+        step: INTENT_TREE.root_general,
+        directReply: `สวัสดีครับ! ยินดีต้อนรับสู่ **Convertly** ศูนย์รวมเครื่องมือแปลงหน่วย, เครื่องมือนักพัฒนา, เวลา และคำนวณการเงินครบวงจร\n\nคุณสามารถพิมพ์สิ่งที่ต้องการทำ (เช่น *"แปลง 50C เป็น F"*, *"สุ่มรหัสผ่าน"*, *"จัดรูปแบบ JSON"*, *"ทดสอบ api"*) หรือเลือกเมนูเครื่องมือแนะนำด้านล่างได้เลยครับ:`,
+        stepOverrideChoices: [
+          { label: 'ทดสอบ API Endpoint', actionType: 'inline', widgetType: 'api_tester' },
+          { label: 'สุ่มสร้างรหัสผ่านปลอดภัย', actionType: 'inline', widgetType: 'password' },
+          { label: 'แปลงฐานเลข (Decimal ↔ Binary)', actionType: 'inline', widgetType: 'radix' },
+          { label: 'คำนวณเปอร์เซ็นต์', actionType: 'inline', widgetType: 'percentage' },
+        ]
+      };
+    }
+
     // Fallback Categorization Matching
     if (q.includes('code') || q.includes('โค้ด') || q.includes('comment') || q.includes('git') || q.includes('curl') || q.includes('sql') || q.includes('css')) return { step: INTENT_TREE.root_code };
     if (q.includes('time') || q.includes('วัน') || q.includes('เวลา') || q.includes('เวล') || q.includes('zone') || q.includes('date')) return { step: INTENT_TREE.root_time };
     
-    return { step: INTENT_TREE.root_general };
+    return { 
+      step: INTENT_TREE.root_general,
+      directReply: `ยินดีต้อนรับครับ! ฉันได้คัดเลือกเครื่องมือที่ตรงกับคำขอหรือใกล้เคียงที่สุดมาให้คุณเลือกใช้งานดังนี้:`
+    };
   };
 
   const [isLoadingAi, setIsLoadingAi] = useState(false);
