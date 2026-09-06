@@ -6,10 +6,10 @@ import { useLocation } from 'react-router-dom';
 const TOOL_KNOWLEDGE_BASE: Record<string, { title: string; description: string; faqs: Array<{ q: string; a: string }> }> = {
   '/': {
     title: 'Convertly Center (หน้าหลัก)',
-    description: 'ศูนย์รวมเครื่องมือแปลงไฟล์, คำนวณ, แปลงหน่วย และ Developer Tools ครบวงจร',
+    description: 'ศูนย์รวมเครื่องมือแปลงไฟล์, คำนวณ, แปลงหน่วย และ Developer Tools ครบวงจร ทำงานเร็ว มั่นใจ ปลอดภัยบนเบราว์เซอร์ของคุณ',
     faqs: [
-      { q: 'Convertly มีเครื่องมืออะไรบ้าง?', a: 'เรามีเครื่องมือแปลงหน่วย, คำนวณการเงิน, เครื่องมือพัฒนาเว็บ (Developer Tools) และตัวแปลงรูปภาพ/ข้อความครับ' },
-      { q: 'ทดสอบ API อย่างไร?', a: 'คุณสามารถพิมพ์ "ทดสอบ api" หรือวาง URL Endpoint ในช่องแชทนี้เพื่อทดสอบยิง Request ได้ทันทีครับ' }
+      { q: 'Convertly มีเครื่องมืออะไรบ้าง?', a: 'มีเครื่องมือครบทุกหมวดหมู่ครับ: แปลงหน่วย, ตัวเลข, เวลา, เครื่องมือนักพัฒนา (Developer Tools), Encoders/Decoders, สี & UI, ข้อความ, รูปภาพ, เครือข่าย และการเงินครับ' },
+      { q: 'ข้อมูลส่วนตัวปลอดภัยไหม?', a: 'ปลอดภัย 100% ครับ ระบบประมวลผลคำนวณทั้งหมดบนเครื่องเบราว์เซอร์ของคุณ (Client-side) ไม่มีการส่งข้อมูลข้อความหรือไฟล์ขึ้นเซิร์ฟเวอร์ภายนอก' }
     ]
   },
   '/number-tools/decimal-binary': {
@@ -18,10 +18,52 @@ const TOOL_KNOWLEDGE_BASE: Record<string, { title: string; description: string; 
     faqs: [
       { 
         q: 'แปลงเลขฐาน 10 เป็น ฐาน 2 อย่างไร?', 
-        a: 'วิธีการคำนวณแปลงเลขฐาน 10 เป็น ฐาน 2 ทำได้โดย **หารเลขฐานสิบด้วย 2 ไปเรื่อยๆ แล้วจดเศษที่ได้ไว้** ดังนี้:\n\n1. นำตัวเลขตั้ง แล้วหารด้วย 2\n2. บันทึกผลหารและ **เศษที่ได้** (เป็น 0 หรือ 1)\n3. นำผลหารไปหารด้วย 2 ต่อไปเรื่อยๆ จนกว่าผลหารจะเป็น 0\n4. อ่านเศษย้อนกลับจาก **ล่างขึ้นบน** (จากเศษสุดท้ายไปเศษแรก)\n\n**ตัวอย่าง (แปลง 13 เป็นฐาน 2)**:\n• 13 ÷ 2 = 6 เศษ **1**\n• 6 ÷ 2 = 3 เศษ **0**\n• 3 ÷ 2 = 1 เศษ **1**\n• 1 ÷ 2 = 0 เศษ **1**\nนำเศษอ่านย้อนกลับ จะได้ **1101₂** ครับ!' 
+        a: 'วิธีการคำนวณแปลงเลขฐาน 10 เป็น ฐาน 2 ทำได้โดย **หารเลขฐานสิบด้วย 2 ไปเรื่อยๆ แล้วจดเศษที่ได้ไว้** ดังนี้:\n\n1. นำตัวเลขตั้ง แล้วหารด้วย 2\n2. บันทึกผลหารและ **เศษที่ได้** (เป็น 0 หรือ 1)\n3. นำผลหารไปหารด้วย 2 ต่อไปเรื่อยๆ จนกว่าผลหารจะเป็น 0\n4. อ่านเศษย้อนกลับจาก **ล่างขึ้นบน** (จากเศษสุดท้ายไปเศษแรก)\n\n**ตัวอย่าง (แปลง 13 เป็นฐาน 2)**:\n• 13 ÷ 2 = 6 เศษ **1**\n• 6 ÷ 2 = 3 เศษ **0**\n• 3 ÷ 2 = 1 เศษ **1**\n• 1 ÷ 2 = 0 เศษ **1**\nนำเศษอ่านย้อนกลับ จะได้ **1101 (ฐาน 2)** ครับ!' 
       },
-      { q: 'รองรับฐาน 16 (Hex) และ ฐาน 8 (Octal) ไหม?', a: 'รองรับครับ! ระบบจะแปลงและแสดงผลลัพธ์ทั้ง Binary (ฐาน 2), Octal (ฐาน 8), Decimal (ฐาน 10) และ Hexadecimal (ฐาน 16) พร้อมกันให้อย่างครบถ้วน' },
-      { q: 'ทำอะไรได้บ้าง?', a: 'เครื่องมือนี้ใช้แปลงเลขระหว่างฐานสิบ, ฐานสอง, ฐานแปด และฐานสิบหก ได้ทันทีแบบ Real-time พร้อมปุ่ม Copy ผลลัพธ์อย่างสะดวกครับ' }
+      { q: 'รองรับฐาน 16 (Hex) และ ฐาน 8 (Octal) ไหม?', a: 'รองรับครับ! ระบบจะแปลงและแสดงผลลัพธ์ทั้ง Binary (ฐาน 2), Octal (ฐาน 8), Decimal (ฐาน 10) และ Hexadecimal (ฐาน 16) พร้อมกันให้อย่างครบถ้วน' }
+    ]
+  },
+  '/number-tools/roman-numerals': {
+    title: 'แปลงเลขโรมัน (Roman Numerals Converter)',
+    description: 'เครื่องมือแปลงตัวเลขฐานสิบ (เช่น 2026) เป็นตัวเลขโรมัน (MMXXVI) และแปลงเลขโรมันกลับเป็นอารบิก',
+    faqs: [
+      { q: 'ตัวอักษรโรมันแต่ละตัวแทนค่าอะไรบ้าง?', a: 'I = 1, V = 5, X = 10, L = 50, C = 100, D = 500, M = 1000 ครับ' }
+    ]
+  },
+  '/time-tools/unix-timestamp': {
+    title: 'Unix Timestamp Converter',
+    description: 'เครื่องมือแปลง Unix Timestamp (จำนวนวินาทีตั้งแต่วันที่ 1 ม.ค. 1970 UTC) เป็นวันที่อ่านง่าย และแปลงวันที่เวลาเป็น Unix Timestamp แบบ Real-time',
+    faqs: [
+      { q: 'Unix Timestamp คืออะไร?', a: 'คือจำนวนวินาทีที่นับตั้งแต่วันที่ 1 มกราคม ค.ศ. 1970 เวลา 00:00:00 UTC (เรียกว่า Unix Epoch) ใช้เป็นมาตรฐานสากลในระบบคอมพิวเตอร์และฐานข้อมูลครับ' },
+      { q: 'รองรับมิลลิวินาที (13 หลัก) ไหม?', a: 'รองรับครับ! ระบบตรวจจับทั้งแบบ 10 หลัก (วินาที) และ 13 หลัก (มิลลิวินาที) ให้อัตโนมัติ' }
+    ]
+  },
+  '/time-tools/date-difference': {
+    title: 'หาผลต่างวัน (Date Difference Calculator)',
+    description: 'คำนวณจำนวนวันที่ต่างกันระหว่าง 2 วันที่ สรุปเป็นจำนวนปี เดือน สัปดาห์ และวันทั้งหมด',
+    faqs: [
+      { q: 'นับรวมวันเริ่มต้นด้วยหรือไม่?', a: 'มีตัวเลือกให้คุณติ๊กนับรวมวันเริ่มต้น หรือนับเฉพาะช่วงวันห่างได้ตามต้องการครับ' }
+    ]
+  },
+  '/time-tools/timezone-converter': {
+    title: 'เปรียบเทียบเวลาต่างประเทศ (Timezone Converter)',
+    description: 'เครื่องมือแปลงและเปรียบเทียบเวลาข้ามโซนประเทศทั่วโลก Real-time เช่น Bangkok, Tokyo, London, New York',
+    faqs: [
+      { q: 'คำนวณปรับตามเวลาออมแสง (Daylight Saving Time) ไหม?', a: 'คำนวณปรับตาม DST ของเมืองปลายทางให้อัตโนมัติตามมาตรฐานสากลครับ' }
+    ]
+  },
+  '/time-tools/pomodoro-timer': {
+    title: 'นาฬิกาจับเวลา Pomodoro Timer',
+    description: 'จับเวลาเทคนิคบริหารเวลา 25 นาทีทำงาน / 5 นาทีพักผ่อน เพื่อเพิ่มประสิทธิภาพการโฟกัสในการทำงาน',
+    faqs: [
+      { q: 'สามารถปรับแต่งระยะเวลาทำงานและพักผ่อนได้ไหม?', a: 'ปรับแต่งช่วงเวลา Focus, Short Break และ Long Break ได้ตามสไตล์ที่คุณถนัดครับ' }
+    ]
+  },
+  '/time-tools/working-days': {
+    title: 'คำนวณวันทำงานและวันหยุดไทย (Thai Working Days)',
+    description: 'คำนวณจำนวนวันทำงาน หักวันเสาร์-อาทิตย์ และวันหยุดนักขัตฤกษ์ของประเทศไทยให้อัตโนมัติ',
+    faqs: [
+      { q: 'อัปเดตวันหยุดนักขัตฤกษ์ประจำปีไหม?', a: 'อัปเดตปฏิทินวันหยุดราชการและวันหยุดธนาคารไทยของปีปัจจุบันครบถ้วนครับ' }
     ]
   },
   '/unit-converters/length': {
@@ -44,6 +86,76 @@ const TOOL_KNOWLEDGE_BASE: Record<string, { title: string; description: string; 
     description: 'เครื่องมือแปลงอุณหภูมิระหว่าง เซลเซียส (°C), ฟาเรนไฮต์ (°F) และเคลวิน (K)',
     faqs: [
       { q: 'แปลงเซลเซียสเป็นฟาเรนไฮต์คำนวณอย่างไร?', a: 'สูตรคือ (°C × 9/5) + 32 = °F ครับ' }
+    ]
+  },
+  '/unit-converters/download-calculator': {
+    title: 'Data & Download Speed Calculator',
+    description: 'คำนวณเวลาดาวน์โหลดไฟล์ตามความเร็วอินเทอร์เน็ต (Mbps/Gbps) และแปลงหน่วยข้อมูล (MB, GB, TB)',
+    faqs: [
+      { q: 'ต่างกันอย่างไรระหว่าง Mbps กับ MB/s?', a: '1 MB/s (Megabyte per sec) เท่ากับ 8 Mbps (Megabit per sec) ครับ' }
+    ]
+  },
+  '/developer-tools/json-formatter': {
+    title: 'จัดรูปแบบ JSON (JSON Formatter & Validator)',
+    description: 'จัดรูปแบบโค้ด JSON ให้สวยงาม อ่านง่าย ตรวจสอบไวยากรณ์ (Syntax Error) พร้อมย่อขนาด (Minify)',
+    faqs: [
+      { q: 'ถ้าระบุ JSON ผิดไวยากรณ์ระบบจะแจ้งอย่างไร?', a: 'ระบบจะไฮไลต์บรรทัดและระบุตำแหน่งที่โค้ดมีโครงสร้างผิดพลาดให้อ่านและแก้ไขได้ทันทีครับ' }
+    ]
+  },
+  '/developer-tools/json-to-csv': {
+    title: 'แปลง JSON เป็น CSV / Excel',
+    description: 'เครื่องมือแปลงโครงสร้างข้อมูล JSON Array เป็นไฟล์ CSV หรือ Excel สำหรับเปิดใน Spreadsheet',
+    faqs: [
+      { q: 'รองรับภาษาไทยในไฟล์ CSV ไหม?', a: 'รองรับ UTF-8 BOM ทำให้เปิดใน Microsoft Excel แล้วภาษาไทยไม่ต่างดาวแน่นอนครับ' }
+    ]
+  },
+  '/developer-tools/css-formatter': {
+    title: 'CSS Minifier & Formatter',
+    description: 'จัดรูปแบบโค้ด CSS ให้สวยงาม หรือบีบอัดขนาดไฟล์ CSS ให้เล็กลงเพื่อเพิ่มความเร็วในการโหลดเว็บ',
+    faqs: [
+      { q: 'Minify แล้วประหยัดขนาดได้แค่ไหน?', a: 'ช่วยลดขนาดไฟล์ CSS ได้ประมาณ 20% - 50% โดยลบช่องว่างและคอมเมนต์ที่ไม่จำเป็นออกครับ' }
+    ]
+  },
+  '/developer-tools/sql-formatter': {
+    title: 'จัดรูปแบบ SQL (SQL Formatter)',
+    description: 'จัดระเบียบคำสั่ง SQL Query ยาวๆ ให้เว้นวรรค ขึ้นบรรทัดใหม่ และจัด Keyword ใหญ่/เล็กอย่างสวยงาม',
+    faqs: [
+      { q: 'รองรับ Dialect ของฐานข้อมูลใดบ้าง?', a: 'รองรับ MySQL, PostgreSQL, SQLite, MS SQL Server และ Oracle ครับ' }
+    ]
+  },
+  '/developer-tools/git-cheatsheet': {
+    title: 'Git Command Cheat Sheet',
+    description: 'คลังคำสั่ง Git ที่ใช้บ่อย ค้นหาง่าย มีตัวอย่างคำสั่ง Commit, Branch, Rebase, Stash และ Undo',
+    faqs: [
+      { q: 'คัดลอกคำสั่งอย่างไร?', a: 'มีปุ่ม Copy คลิกเดียวเพื่อคัดลอกคำสั่ง Git ไปวางใน Terminal ได้ทันทีครับ' }
+    ]
+  },
+  '/developer-tools/shadow-generator': {
+    title: 'CSS Box Shadow Generator',
+    description: 'เครื่องมือปรับแต่งและสร้างโค้ด CSS box-shadow สไตล์เรียบหรูและ Neumorphism พร้อม Copy โค้ดไปใช้งาน',
+    faqs: [
+      { q: 'รองรับการซ้อนเงาหลายชั้นไหม?', a: 'รองรับครับ! คุณสามารถเพิ่มเลเยอร์เงาและปรับสี ความฟุ้ง ได้อย่างอิสระ' }
+    ]
+  },
+  '/developer-tools/uuid-generator': {
+    title: 'สร้างรหัส UUID (UUID v4 Generator)',
+    description: 'สุ่มสร้างรหัสระบุเอกลักษณ์สากล (Universally Unique Identifier - UUID v4) แบบเดี่ยวหรือแบบชุด',
+    faqs: [
+      { q: 'UUID v4 มีโอกาสซ้ำกันไหม?', a: 'โอกาสซ้ำกันมีน้อยมากทางสถิติ (แทบเป็น 0) ปลอดภัยสำหรับใช้เป็น Primary Key หรือ Token' }
+    ]
+  },
+  '/developer-tools/json-to-types': {
+    title: 'JSON to TypeScript / Go Struct',
+    description: 'แปลง JSON Object เป็น Type Definition ของ TypeScript, Interface หรือ Struct ภาษา Go, C#, Java',
+    faqs: [
+      { q: 'แปลงเป็นภาษาอะไรได้บ้าง?', a: 'รองรับ TypeScript Interface, Go Struct, Java Class และ C# Model ครับ' }
+    ]
+  },
+  '/developer-tools/curl-converter': {
+    title: 'cURL to Fetch / Axios Code Converter',
+    description: 'แปลงคำสั่ง cURL ใน Terminal เป็นซอร์สโค้ด JavaScript (Fetch / Axios), Python (Requests) หรือ PHP',
+    faqs: [
+      { q: 'รองรับ Headers และ Body ไหม?', a: 'ระบบแยกแยะ Headers, Bearer Token และ JSON Body ให้อัตโนมัติ' }
     ]
   },
   '/developer-tools/api-tester': {
@@ -98,10 +210,14 @@ export default function ContextualAiChatbot() {
   const location = useLocation();
   const chatEndRef = useRef<HTMLDivElement>(null);
 
+  const rawSlug = location.pathname.split('/').filter(Boolean).pop() || 'Tool';
+  const formattedTitle = rawSlug.split('-').map(w => w.charAt(0).toUpperCase() + w.slice(1)).join(' ');
   const currentToolInfo = TOOL_KNOWLEDGE_BASE[location.pathname] || {
-    title: `เครื่องมือในหน้านี้ (${location.pathname.split('/').pop() || 'Tool'})`,
-    description: 'เครื่องมืออำนวยความสะดวกสำหรับนักพัฒนาและผู้ใช้งานทั่วไป',
-    faqs: []
+    title: `เครื่องมือ ${formattedTitle}`,
+    description: 'เครื่องมืออำนวยความสะดวกประมวลผลข้อมูลแบบ Real-time บนเบราว์เซอร์ของคุณ ปลอดภัย 100% ไม่ส่งข้อมูลออกภายนอก',
+    faqs: [
+      { q: `วิธีใช้งานเครื่องมือ ${formattedTitle}?`, a: `เพียงกรอกข้อมูลลงในช่องป้อนข้อมูลทางด้านซ้าย ระบบจะประมวลผลคำนวณและแสดงผลลัพธ์ให้ทันทีแบบ Real-time บนเครื่องของคุณครับ` }
+    ]
   };
 
   useEffect(() => {
